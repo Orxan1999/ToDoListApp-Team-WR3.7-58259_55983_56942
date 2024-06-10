@@ -1,0 +1,187 @@
+﻿@model List< TaskModel>
+@{
+    int count = ViewBag.Count;
+}
+<div class="d-flex justify-content-between align-items-center">
+    <h4 class="fw-bold py-3 mb-4">Tasks</h4>
+
+
+
+    <div class="d-flex justify-content-end align-items-center">
+
+
+        <div class="btn-group me-2">
+            <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Sort by/Filter
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="javascript:void(0);" id="TitleAscending">Sort by Title (Ascending)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" id="TitleDescending">Sort by Title (Descending)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" id="DeadlineAscending">Sort by Deadline (Ascending)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" id="DeadlineDescending">Sort by Deadline (Descending)</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" id="OnlyCompletedTasks">Show Only Completed Tasks</a></li>
+                <li><a class="dropdown-item" href="javascript:void(0);" id="OnlyPendingTasks">Show Only Pending Tasks</a></li>
+
+            </ul>
+        </div>
+        <a asp-action="Create" class="btn btn-outline-primary">Create</a>
+    </div>
+
+
+</div>
+
+<!-- Basic Bootstrap Table -->
+<div class="card">
+
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Created On</th>
+                    <th>Deadline</th>
+
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody class="table-border-bottom-0" id="TableBody">
+
+                @foreach (TaskModel task in Model)
+                {
+                    <tr>
+                        <td>@count</td>
+                        <td>@task.Title</td>
+                        <td>@task.CreatedOn.ToShortDateString()</td>
+                        <td>@task.Deadline.ToShortDateString()</td>
+
+                        <td>
+                            @if (!task.IsCompleted)
+                            {
+                                <span class="badge bg-label-warning me-1">Pending</span>
+
+                            }
+                            else
+                            {
+                                <span class="badge bg-label-success me-1">Completed</span>
+                            }
+                        <td>
+                            <div class="dropdown">
+                                <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu">
+                                    <a asp-route-id="@task.Id" asp-action="Detail" class="dropdown-item"><i class='bx bx-detail'></i> Detail</a>
+
+                                    <a asp-route-id="@task.Id" asp-action="Update" class="dropdown-item"><i class="bx bx-edit-alt me-1"></i> Edit</a>
+
+
+                                    <a asp-route-id="@task.Id" asp-action="Delete" class="dropdown-item"><i class="bx bx-trash me-1"></i> Delete</a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    count++;
+
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    <script>
+
+        $(document).on('click', '#TitleAscending', function () {
+
+            $.ajax({
+                url: "/Tasks/TitleAscending/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+        $(document).on('click', '#TitleDescending', function () {
+
+            $.ajax({
+                url: "/Tasks/TitleDescending/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+        $(document).on('click', '#DeadlineAscending', function () {
+
+            $.ajax({
+                url: "/Tasks/DeadlineAscending/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+
+        $(document).on('click', '#DeadlineDescending', function () {
+
+            $.ajax({
+                url: "/Tasks/DeadlineDescending/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+        $(document).on('click', '#OnlyCompletedTasks', function () {
+
+            $.ajax({
+                url: "/Tasks/ShowOnlyCompletedTasks/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+
+        $(document).on('click', '#OnlyPendingTasks', function () {
+
+            $.ajax({
+                url: "/Tasks/ShowOnlyPendingTasks/",
+                cache: false,
+                success: function (res) {
+                    $("#TableBody").empty();
+                    $("#TableBody").append(res);
+
+                }
+            });
+
+        });
+
+
+    </script>
+}

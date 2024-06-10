@@ -10,6 +10,6 @@ namespace ToDoListApp.Dal
 
         }
 
-        public DbSet<Models.Task> Tasks { get; set; }
+        public DbSet<TaskModel> Tasks { get; set; }
     }
 }
