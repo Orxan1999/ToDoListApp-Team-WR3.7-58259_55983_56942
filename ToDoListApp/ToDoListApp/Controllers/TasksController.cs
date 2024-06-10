@@ -54,5 +54,72 @@ namespace ToDoListApp.Controllers
 
         }
 
+        public async Task<IActionResult> Update(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            TaskModel task = await _db.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+
+            return View(task);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(int id, TaskModel newTask, bool status)
+        {
+
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            TaskModel task = await _db.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+
+
+            if (newTask.Title != task.Title)
+            {
+                ModelState.AddModelError("Title", "Title can not be changed");
+
+                return View(task);
+            }
+
+            task.Description = newTask.Description;
+            task.Deadline = newTask.Deadline;
+            task.IsCompleted = status;
+
+            if (newTask.Deadline < DateTime.Now && !task.IsCompleted)
+            {
+                ModelState.AddModelError("Deadline", "Deadline can not be earlier than current time");
+                return View(task);
+
+            }
+
+            if (task.IsCompleted == true)
+            {
+                task.CompletedOn = DateTime.Now;
+            }
+
+
+            await _db.SaveChangesAsync();
+            return RedirectToAction("Index");
+
+
+        }
+
+
     }
 }

@@ -1,0 +1,68 @@
+﻿@model TaskModel
+<h4 class="fw-bold py-3 mb-4">Update @Model.Title</h4>
+
+<!-- Basic Layout -->
+<div class="row">
+    <div class="col-xl">
+        <div class="card mb-4">
+
+            <div class="card-body">
+                <form method="post">
+                    <div class="mb-3">
+                        <label asp-for="Title" class="form-label" for="basic-default-fullname"></label>
+                        <input asp-for="Title" class="form-control" id="basic-default-fullname" placeholder="Title" />
+                        <span asp-validation-for="Title" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label asp-for="Description" class="form-label" for="basic-default-fullname"></label>
+                        <input asp-for="Description" class="form-control" id="basic-default-fullname" placeholder="Description" />
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+
+
+                    <div class="mb-3">
+                        <label asp-for="Deadline" class="form-label" for="basic-default-fullname"></label>
+                        <input asp-for="Deadline" type="date" class="form-control" id="basic-default-fullname" placeholder="Deadline" />
+                        <span asp-validation-for="Deadline" class="text-danger"></span>
+                    </div>
+
+
+
+                    @* <div class="mb-3">
+                    <label asp-for="IsCompleted" class="form-label" for="basic-default-fullname">Completed?</label>
+                    <input asp-for="IsCompleted" type="checkbox" name="status" id="basic-default-fullname" />
+                    <span asp-for="IsCompleted" class="text-danger"></span>
+                    </div> *@
+
+
+
+                    <div class="mb-3">
+                        <label class="form-label">Status</label><br>
+                        <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                            <!-- For Pending, radio is unchecked by default -->
+                            <input asp-for="IsCompleted" type="radio" class="btn-check" id="btnradio1" name="status" value="false" autocomplete="off">
+                            <label class="btn btn-outline-primary" for="btnradio1">Pending</label>
+
+                            <!-- For Completed, radio is checked by default if IsCompleted is true -->
+                            <input asp-for="IsCompleted" type="radio" class="btn-check" id="btnradio2" name="status" value="true" autocomplete="off" )>
+                            <label class="btn btn-outline-primary" for="btnradio2">Completed</label>
+                        </div>
+                    </div>
+
+
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <a asp-action="Index" class="btn btn-secondary">Back</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}
+
