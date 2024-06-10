@@ -1,0 +1,53 @@
+﻿@model TaskModel
+
+
+<div class="d-flex justify-content-between align-items-center">
+    <h4 class="fw-bold py-3 mb-4">@Model.Title Detail</h4>
+
+
+</div>
+
+<!-- Basic Bootstrap Table -->
+<div class="card">
+
+    <div class="table-responsive ">
+        <table class="table">
+            <thead>
+                <tr>
+
+                    <th style="width:10% ">Title</th>
+                    <th style="text-align: center;">Description</th>
+
+                    @if (@Model.IsCompleted)
+                    {
+                        <th>Completed on</th>
+                    }
+
+
+                </tr>
+            </thead>
+
+            <tbody class="table-border-bottom-0">
+                <tr>
+                    <td style="width:10% ">@Model.Title</td>
+                    <td >@Model.Description</td>
+                    <td>
+                        @if (@Model.IsCompleted)
+                        {
+                            @Model.CompletedOn.ToShortDateString()
+                        }
+                    </td>
+                </tr>
+            </tbody>
+
+
+
+        </table>
+
+
+
+    </div>
+
+</div>
+
+<a asp-action="Index" style="margin-top:10px" class="btn btn-secondary">Back</a>

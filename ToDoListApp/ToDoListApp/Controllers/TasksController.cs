@@ -121,5 +121,23 @@ namespace ToDoListApp.Controllers
         }
 
 
+
+        public async Task<IActionResult> Detail(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            TaskModel task = await _db.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+            return View(task);
+        }
+
+
     }
 }
