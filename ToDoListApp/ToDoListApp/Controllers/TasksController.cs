@@ -139,5 +139,26 @@ namespace ToDoListApp.Controllers
         }
 
 
+        public async Task<IActionResult> Delete(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+
+            TaskModel task = await _db.Tasks.FirstOrDefaultAsync(x => x.Id == id);
+            if (task == null)
+            {
+                return BadRequest();
+            }
+
+
+            _db.Remove(task);
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+
+
     }
 }
