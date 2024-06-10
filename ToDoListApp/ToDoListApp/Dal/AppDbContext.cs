@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using ToDoListApp.Models;
 
 namespace ToDoListApp.Dal
 {
@@ -8,5 +9,7 @@ namespace ToDoListApp.Dal
         {
 
         }
+
+        public DbSet<Models.Task> Tasks { get; set; }
     }
 }

@@ -95,7 +95,7 @@
                     </li>
 
 
-                    @if (!User.Identity.IsAuthenticated)
+                   @*  @if (!User.Identity.IsAuthenticated)
                     {
                         <li class="menu-item @(currentController == "Tasks"  ? "active" : "")">
                             <a asp-action="SignUp" asp-controller="Account" class="menu-link">
@@ -112,7 +112,7 @@
                         </li>
                     }
                     else
-                    {
+                    { *@
                         <li class="menu-item @(currentController == "Tasks"  ? "active" : "")">
                             <a asp-action="Index" asp-controller="Tasks" class="menu-link">
                                 <i class="menu-icon tf-icons bx bx-table"></i>
@@ -128,7 +128,7 @@
                         </li>
 
 
-                    }
+                    @* } *@
                     <!-- Tasks -->
 
 
