@@ -159,6 +159,21 @@ namespace ToDoListApp.Controllers
             return RedirectToAction("Index");
         }
 
+        public async Task<IActionResult> TitleAscending()
+        {
+            List<TaskModel> tasks = await _db.Tasks.OrderBy(x => x.Title).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_TitleAscendingPartial", tasks);
+        }
+
+        public async Task<IActionResult> TitleDescending()
+        {
+            List<TaskModel> tasks = await _db.Tasks.OrderByDescending(x => x.Title).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_TitleDescendingPartial", tasks);
+        }
+
+
 
     }
 }
