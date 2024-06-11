@@ -174,6 +174,21 @@ namespace ToDoListApp.Controllers
         }
 
 
+        public async Task<IActionResult> DeadlineAscending()
+        {
+            List<TaskModel> tasks = await _db.Tasks.OrderBy(x => x.Deadline).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_DeadlineAscendingPartial", tasks);
+        }
+        public async Task<IActionResult> DeadlineDescending()
+        {
+            List<TaskModel> tasks = await _db.Tasks.OrderByDescending(x => x.Deadline).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_DeadlineDescendingPartial", tasks);
+        }
+
+
+
 
     }
 }
