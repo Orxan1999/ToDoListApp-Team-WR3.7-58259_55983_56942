@@ -187,6 +187,20 @@ namespace ToDoListApp.Controllers
             return PartialView("_DeadlineDescendingPartial", tasks);
         }
 
+        public async Task<IActionResult> ShowOnlyCompletedTasks()
+        {
+            List<TaskModel> tasks = await _db.Tasks.Where(x => x.IsCompleted).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_OnlyCompletedTasksPartial", tasks);
+        }
+
+        public async Task<IActionResult> ShowOnlyPendingTasks()
+        {
+            List<TaskModel> tasks = await _db.Tasks.Where(x => !x.IsCompleted).ToListAsync();
+            ViewBag.Count = 1;
+            return PartialView("_OnlyPendingTasksPartial", tasks);
+        }
+
 
 
 
